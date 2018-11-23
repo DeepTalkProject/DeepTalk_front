@@ -5,23 +5,15 @@ import {
     TextInput
 } from 'react-native-paper';
 
-class Login extends Component {
-    // EventHandlers on the top bar
-    _onSearch = function () {
-        console.log('pressed search button');
-    }
-    _onAdd = function () {
-        console.log('pressed add button');
-    }
-    _onSetting = function () {
-        console.log('pressed setting button');
-    }
-
+class Background extends Component {
     render() {
         return (
-            
+            <Image
+                style={}
+                source={require('./assets/back.jpg')}
+            />
         );
     }
 }
 
-export default FriendList;
+export default Background;
