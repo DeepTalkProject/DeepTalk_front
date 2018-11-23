@@ -50,7 +50,7 @@ class DeepTalk extends Component {
             { key: 'chats', title: 'Chats', icon: 'chat' },
             { key: 'setting', title: 'Setting', icon: 'settings' }
         ]
-    }
+    };
 
     // EventHandlers on the bottom navigator
     FriendRoute = function () {

@@ -2,10 +2,10 @@ import React, {
     Component
 } from 'react';
 import {
-    Appbar
+    TextInput
 } from 'react-native-paper';
 
-class FriendList extends Component {
+class Login extends Component {
     // EventHandlers on the top bar
     _onSearch = function () {
         console.log('pressed search button');
@@ -19,12 +19,7 @@ class FriendList extends Component {
 
     render() {
         return (
-            <Appbar.Header>
-                <Appbar.Content title="FRIENDS" />
-                <Appbar.Action icon="search" onPress={this._onSearch} />
-                <Appbar.Action icon="person-add" onPress={this._onAdd} />
-                <Appbar.Action icon="settings" onPress={this._onSetting} />
-            </Appbar.Header>
+            
         );
     }
 }

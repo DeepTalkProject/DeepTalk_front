@@ -2,30 +2,10 @@ import React, {
     Component
 } from 'react';
 import {
-    StyleSheet,
-    Dimensions
-} from 'react-native';
-import {
-    Provider as PaperProvider,
-    Appbar,
-    BottomNavigation,
-    Text
+    Appbar
 } from 'react-native-paper';
 
-const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
-
 class SettingList extends Component {
-    // Basic methods
-    state = {
-        index: 0,
-        routes: [
-            { key: 'friends', title: 'Friends', icon: 'person' },
-            { key: 'chats', title: 'Chats', icon: 'chat' },
-            { key: 'setting', title: 'Setting', icon: 'settings' }
-        ]
-    }
-
     // EventHandlers on the top bar
     _onSearch = function () {
         console.log('pressed search button');
@@ -45,18 +25,5 @@ class SettingList extends Component {
         );
     }
 }
-
-var styles = StyleSheet.create({
-    topbar: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        zIndex: 1
-    },
-    buttom: {
-        zIndex: 1
-    }
-});
 
 export default SettingList;

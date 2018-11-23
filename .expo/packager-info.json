@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
+  "expoServerPort": null,
   "expoServerNgrokUrl": "https://ew-ni6.anonymous.deeptalk-front.exp.direct",
   "packagerNgrokUrl": "https://packager.ew-ni6.anonymous.deeptalk-front.exp.direct",
-  "ngrokPid": 4688,
+  "ngrokPid": 3733,
   "devToolsPort": 19002,
-  "packagerPort": 19001,
-  "packagerPid": 4629
+  "packagerPort": null,
+  "packagerPid": null
 }
