@@ -1,0 +1,58 @@
+[{
+    "social": {
+        "twitter": "http://twitter.com/johndoe",
+        "facebook": "http://facebook.com/johndoe"
+    },
+    "skills": ["HTML", "CSS", "JavaScript", "PHP"],
+    "_id": "5b7282cc10674513b34b1b37",
+    "user": {
+        "_id": "5b726aefc429130bd298a388",
+        "name": "John Doe",
+        "avatar": "//www.gravatar.com/avatar/1f9d9a9efc2f523b2f09629444632b5c?s=200&r=pg&d=mm"
+    },
+    "handle": "johndoe",
+    "status": "Developer",
+    "experience": [],
+    "education": [],
+    "data": "2018-08-14T07:20:44.982Z",
+    "__v": 0,
+    "company": "Edusoft",
+    "website": "http://www.edusoft.com",
+    "date": "2018-11-24T17:20:33.120Z"
+}, {
+    "social": {
+        "twitter": "http://twitter.com/traversymedia",
+        "facebook": "http://facebook.com/traversymedia",
+        "linkedin": "http://linkedin.com/inbradtraversy",
+        "instagram": "http://instagram.com/traversymedia"
+    },
+    "skills": ["HTML", "CSS", "Javascript", "PHP", "Python", "Ruby"],
+    "_id": "5b7a82d8dcf1152054fe620c",
+    "user": null,
+    "handle": "bradtraversy",
+    "company": "Traversy Media",
+    "website": "http://www.traversymedia.com",
+    "bio": "I am a profgramming instructor on Udemy and YouTube",
+    "status": "Instrcutor",
+    "githubusername": "bradtraversy",
+    "experience": [{
+        "current": false,
+        "_id": "5b7a9ebd5766d729c451cc57",
+        "title": "Senior Developer",
+        "company": "Tech Guy Web Solutions",
+        "from": "2010-02-04T00:00:00.000Z",
+        "to": "2015-04-05T00:00:00.000Z"
+    }],
+    "education": [{
+        "current": false,
+        "_id": "5b7aa1229f45b32aa8fe547d",
+        "school": "Northern Essex",
+        "degree": "Associate",
+        "fieldofstudy": "computer science",
+        "from": "2008-02-04T00:00:00.000Z",
+        "to": "2010-01-01T00:00:00.000Z"
+    }],
+    "data": "2018-08-20T08:59:04.037Z",
+    "__v": 6,
+    "date": "2018-11-24T17:20:33.124Z"
+}]
