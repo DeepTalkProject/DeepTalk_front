@@ -13,6 +13,7 @@ import {
     List,
     Divider
 } from 'react-native-paper';
+import SendBirdApp from '../../config/keys';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -24,6 +25,18 @@ class FriendList extends Component {
         myprofile: false,
         clickedOther: false
     };
+
+    _onSearch = () => {
+
+    }
+
+    _onAdd = () => {
+
+    }
+
+    _onSetting = () => {
+        
+    }
 
     _onMyProfile = () => {
         console.log('my profile');

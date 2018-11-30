@@ -16,6 +16,9 @@ import {
     Provider as PaperProvider
 } from 'react-native-paper';
 import SendBird from 'sendbird';
+const crypto = require('crypto');
+const hash = crypto.createHash('sha512');
+import SendBirdApp from '../../config/keys';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -45,11 +48,42 @@ const theme = {
 class LoginScene extends Component {
     state = {
         id: '',
+        pw: '',
         error: ''
     };
 
     _onPress = async () => {
         console.log('Login');
+
+        let encrypt = hash.read(this.state.id + '\n---\n' + this.state.pw);
+
+        let exist = await fetch('http://10.64.146.24:5000/api/users/getId', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user_id: encrypt,
+            }),
+        });
+        let res = await exist.json();
+        res = JSON.parse(res);
+        if (res.error === true) {
+            console.log('NOT FOUND!');
+            this.setState({'error': 'Your ID or Password is wrong!'});       // Is the error only because of the non-existance?
+        }
+        else {
+            // Retrieve the auth token by asking the password to the auth server
+            let auth = res.auth;
+            SendBirdApp.connect(this.state.id, auth, function (user, error) {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    this.props.navigation.navigate('Main');
+                }
+            });
+        }
         // let response = await fetch(
         //     'http://192.168.1.102:5000/api/profile/all', {
         //         method: 'GET',
@@ -80,7 +114,7 @@ class LoginScene extends Component {
         //         });
         //     }
         // });
-        this.props.navigation.navigate('Main');
+
     }
     _onRegister = async () => {
         console.log('Sign up');
@@ -94,6 +128,8 @@ class LoginScene extends Component {
                 <View style={styles.fil}>
                     <Text style={styles.title}>DeepTalk</Text>
                     <TextInput style={styles.id} label='Username' onChangeText={id => this.setState({id})} value={this.state.id} />
+                    <TextInput style={styles.pw1} label='Password' onChangeText={pw => this.setState({pw})} value={this.state.pw1} secureTextEntry={true} />
+                    <TextInput style={styles.err} error={true} value={this.state.err} underlineColor='rgba(0, 0, 0, 0)' raised theme={{ colors: {text: '#ff0000'}}} />
                     <Button style={styles.submit} mode='text' onPress={this._onPress}>Login</Button>
                     <View style={styles.seperator}><View style={styles.line1}></View><Text style={styles.or}>or</Text><View style={styles.line2}></View></View>
                     <Button style={styles.join} mode='text' onPress={this._onRegister}>Sign up</Button>
@@ -166,7 +202,11 @@ var styles = StyleSheet.create({
     },
     join: {
         top: screenHeight * 0.35
-    }
+    },
+    err: {
+        top: screenHeight * 0.2,
+        backgroundColor: 'rgba(0, 0, 0, 0)'
+    },
 });
 
 export default LoginScene;
