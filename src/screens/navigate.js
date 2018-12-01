@@ -33,9 +33,13 @@ const theme = {
 };
 
 class Navigator extends Component {
-    static navigationOptions = {
-        title: 'Login'
+    constructor(props) {
+        super(props);
+        this.params = this.props.navigation.state.params;
     }
+    navigationOptions = {
+        title: 'Login'
+    };
     // Basic methods
     state = {
         index: 0,
@@ -47,8 +51,9 @@ class Navigator extends Component {
     };
 
     // EventHandlers on the bottom navigator
-    FriendRoute = function () {
-        return <FriendList />
+    FriendRoute = () => {
+        var id = this.params.id;
+        return <FriendList id={this.params.id} />
     };
     ChatRoute = function () {
         return <ChatList />

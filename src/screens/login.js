@@ -15,10 +15,8 @@ import {
     TextInput,
     Provider as PaperProvider
 } from 'react-native-paper';
-import SendBird from 'sendbird';
-const crypto = require('crypto');
-const hash = crypto.createHash('sha512');
-import SendBirdApp from '../../config/keys';
+import {SendBirdApp} from '../../config/keys';
+import {API_TOKEN} from '../../config/keys';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -48,39 +46,36 @@ const theme = {
 class LoginScene extends Component {
     state = {
         id: '',
-        pw: '',
         error: ''
     };
 
     _onPress = async () => {
+        const _this = this;
         console.log('Login');
 
-        let encrypt = hash.read(this.state.id + '\n---\n' + this.state.pw);
-
-        let exist = await fetch('http://10.64.146.24:5000/api/users/getId', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user_id: encrypt,
-            }),
-        });
-        let res = await exist.json();
-        res = JSON.parse(res);
-        if (res.error === true) {
-            console.log('NOT FOUND!');
-            this.setState({'error': 'Your ID or Password is wrong!'});       // Is the error only because of the non-existance?
+        if (this.state.id === '') {
+            this.setState({'err': 'Your ID is missing,'});
+        }
+        else if (this.state.id.length < 5 || this.state.id.length > 20) {
+            this.setState({'err': 'Your ID should have length between 5 and 20.'});
         }
         else {
-            // Retrieve the auth token by asking the password to the auth server
-            let auth = res.auth;
-            SendBirdApp.connect(this.state.id, auth, function (user, error) {
+            exist = await fetch('https://api.sendbird.com/v3/users/' + this.state.id, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Api-Token': API_TOKEN,
+                },
+            });
+            let res = await exist.json();
+            SendBirdApp.connect(_this.state.id, function (user, error) {
                 if (error) {
-                    console.log(error);
+
                 }
                 else {
-                    this.props.navigation.navigate('Main');
+                    _this.props.navigation.navigate('Main', {
+                        'id': _this.state.id,
+                    });
                 }
             });
         }
@@ -128,7 +123,6 @@ class LoginScene extends Component {
                 <View style={styles.fil}>
                     <Text style={styles.title}>DeepTalk</Text>
                     <TextInput style={styles.id} label='Username' onChangeText={id => this.setState({id})} value={this.state.id} />
-                    <TextInput style={styles.pw1} label='Password' onChangeText={pw => this.setState({pw})} value={this.state.pw1} secureTextEntry={true} />
                     <TextInput style={styles.err} error={true} value={this.state.err} underlineColor='rgba(0, 0, 0, 0)' raised theme={{ colors: {text: '#ff0000'}}} />
                     <Button style={styles.submit} mode='text' onPress={this._onPress}>Login</Button>
                     <View style={styles.seperator}><View style={styles.line1}></View><Text style={styles.or}>or</Text><View style={styles.line2}></View></View>

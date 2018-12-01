@@ -16,8 +16,6 @@ import {
     Provider as PaperProvider
 } from 'react-native-paper';
 import SendBird from 'sendbird';
-const crypto = require('crypto');
-const hash = crypto.createHash('sha512');
 import SendBirdApp from '../../config/keys';
 
 const screenWidth = Dimensions.get('window').width;

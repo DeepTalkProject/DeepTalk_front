@@ -5,6 +5,7 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import LoginScene from './src/screens/login';
 import Navigator from './src/screens/navigate';
 import RegisterScene from './src/screens/register';
+import ChatRoom from './src/screens/chat';
 
 const AppNavigator = createStackNavigator({
     Login: {
@@ -24,7 +25,13 @@ const AppNavigator = createStackNavigator({
         navigationOptions: {
             header: null
         }
-    }
+    },
+    Chat: {
+        screen: ChatRoom,
+        navigationOptions: {
+            header: null
+        }
+    },
 }, {
     initialRouteName: 'Login'
 });
