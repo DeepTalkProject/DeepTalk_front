@@ -53,10 +53,12 @@ class Navigator extends Component {
     // EventHandlers on the bottom navigator
     FriendRoute = () => {
         var id = this.params.id;
-        return <FriendList id={this.params.id} />
+        console.log('At navigate:', this.props);
+        return <FriendList id={this.params.id} navigation={this.props.navigation} />
     };
-    ChatRoute = function () {
-        return <ChatList />
+    ChatRoute = () => {
+        var id = this.params.id;
+        return <ChatList id={this.params.id} />
     };
     SettingRoute = function () {
         return <SettingList />

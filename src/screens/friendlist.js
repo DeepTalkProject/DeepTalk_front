@@ -18,7 +18,7 @@ import {
     TouchableRipple,
     Title
 } from 'react-native-paper';
-import SendBirdApp from '../../config/keys';
+import {SendBirdApp} from '../../config/keys';
 import {API_TOKEN} from '../../config/keys';
 
 const screenWidth = Dimensions.get('window').width;
@@ -40,7 +40,7 @@ function onFriendPressed(param) {
     this.setState({
         'exit': param.value,
         'title': param.item,
-        'img': param.img
+        'img': param.img,
     })
 }
 
@@ -87,7 +87,7 @@ class FriendBox extends Component {
         this.state = {
             exit: true,
             title: '',
-            img: ''
+            img: '',
         }
         onFriendPressed = onFriendPressed.bind(this);
     }
@@ -96,6 +96,32 @@ class FriendBox extends Component {
     _onExit = () => {
         this.setState({'exit': true});
     };
+
+    _makeChatRoom = () => {
+        var _this = this;
+        let userID = [this.state.title];
+        let chatRoomName = 'Chat of ' + this.props.user + ' and ' +  this.state.title;
+
+        SendBirdApp.GroupChannel.createChannelWithUserIds(
+            userID,
+            true,
+            chatRoomName,
+            '',                 // cannot call the file
+            chatRoomName,
+            function (channel, error) {
+                if (error) {
+                    console.log(error);
+                }
+                else {
+                    console.log('Navigation');
+                    console.log(_this.props.navigation);
+                    _this.props.navigation.navigate('Chat', {
+                        'id': this.state.title
+                    });
+                }
+            }
+        );
+    }
 
     render() {
         console.log('UserBox:', this.state.exit);
@@ -111,7 +137,7 @@ class FriendBox extends Component {
                     <Title style={{position: 'absolute', left: 20, top: 20}}>{this.state.title}</Title>
                     {(this.state.img !== 'no image') ? <Image source={{uri: this.state.img}} style={styles.profileImage} /> : <Image resizeMode='contain' source={require('./../../assets/icon.png')} style={styles.profileImageBasic} />}
                     <Button raised theme={{ colors: {primary: '#01579b'}}} style={{position: 'absolute', top: '60%', width: '90%', left: '5%'}} onPress={() => console.log('view profile')}>View Profile</Button>
-                    <Button raised theme={{ colors: {primary: '#01579b'}}} style={{position: 'absolute', top: '70%', width: '90%', left: '5%'}} onPress={() => console.log('chat with user')}>Chat with this user</Button>
+                    <Button raised theme={{ colors: {primary: '#01579b'}}} style={{position: 'absolute', top: '70%', width: '90%', left: '5%'}} onPress={this._makeChatRoom}>Chat with this user</Button>
                     <Button raised theme={{ colors: {primary: '#01579b'}}} style={{position: 'absolute', top: '80%', width: '90%', left: '5%'}} onPress={() => console.log('show emoticon')}>Show Emotion Statistic</Button>
                 </Surface>
             );
@@ -122,6 +148,7 @@ class FriendBox extends Component {
 class FriendList extends Component {
     state = {
         id: this.props.id,
+        navigation: this.props.navigation,
         pimage: '',
         myprofile: false,
         switcher: false,
@@ -214,6 +241,7 @@ class FriendList extends Component {
             return (<View></View>);
         }
         else {
+            console.log('PROPERTY:', this.props);
             return (
                 <View style={{height: '100%'}}>
                     <Appbar.Header>
@@ -240,8 +268,8 @@ class FriendList extends Component {
                                 {this.state.friends}
                             </List.Section>
                         </ScrollView>
-                        <UserBox title={this.state.id} exit={this.state.switcher} />
-                        <FriendBox exit={this.state.switcher} />
+                        <UserBox navigation={this.state.navigation} title={this.state.id} exit={this.state.switcher} />
+                        <FriendBox navigation={this.state.navigation} user={this.state.id} exit={this.state.switcher} />
                     </View>
                 </View>
             );

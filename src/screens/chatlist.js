@@ -12,15 +12,63 @@ import {
     Appbar,
     List
 } from 'react-native-paper';
+import SendBirdApp from '../../config/keys';
+import {API_TOKEN} from '../../config/keys';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 class ChatList extends Component {
+    state = {
+        id: this.props.id,
+        'friends': []
+    };
     // EventHandlers on the top bar
     _onClick = () => {
 
     };
+
+    componentDidMount = async () => {
+        var friendsInfo = await fetch('https://api.sendbird.com/v3/users/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Api-Token': API_TOKEN,
+            },
+        });
+        var friendsJson = await friendsInfo.json();
+        var friends = [];
+
+        for (var i = 0; i < friendsJson.users.length; ++i) {
+            if (friendsJson.users[i].user_id !== this.state.id) {
+                if (friendsJson.users[i].profile_url !== '') {
+                    let url = friendsJson.users[i].profile_url;
+                    friends.push(
+                        <List.Item
+                            key={friendsJson.users[i].user_id}
+                            title={friendsJson.users[i].user_id}
+                            onPress={() => console.log('Profile')}
+                            style={{left: screenWidth * 0.05, width: screenWidth * 0.9}}
+                            left={() => <Image source={{uri: url.slice()}} style={styles.friendAvatar} />}
+                        />
+                    );
+                }
+                else {
+                    friends.push(
+                        <List.Item
+                            key={friendsJson.users[i].user_id}
+                            title={friendsJson.users[i].user_id}
+                            onPress={() => console.log('No Profile Image')}
+                            style={{left: screenWidth * 0.05, width: screenWidth * 0.9}}
+                            left={() => <Image source={require('./../../assets/icon.png')} style={styles.friendAvatar} />}
+                        />
+                    );
+                }
+            }
+        }
+        console.log('friends from chat: ', friends);
+        this.setState({'friends': friends});
+    }
 
     render() {
         return (
@@ -33,16 +81,7 @@ class ChatList extends Component {
                 </Appbar.Header>
                 <ScrollView>
                     <List.Section title='Friends' style={styles.friends}>
-                        <List.Item
-                            title="Friend 1"
-                            onPress={this._onClick}
-                            style={{left: screenWidth * 0.05, width: screenWidth * 0.9}}
-                            left={() => <Image source={require('./../../assets/icon.png')} style={styles.friendAvatar} />}
-                            onLayout={(event) => {
-                                var {x, y, width, height} = event.nativeEvent.layout;
-                                console.log('Friend Height: ', height);
-                            }}
-                        />
+                        {this.state.friends}
                     </List.Section>
                 </ScrollView>
             </View>

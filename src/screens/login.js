@@ -79,36 +79,6 @@ class LoginScene extends Component {
                 }
             });
         }
-        // let response = await fetch(
-        //     'http://192.168.1.102:5000/api/profile/all', {
-        //         method: 'GET',
-        //     }
-        // );
-        // let responseJson = await response.json();
-        // console.log(JSON.stringify(responseJson));
-        // const sb = new SendBird({ 'appId': '5C7C52A0-56FD-4B47-BE73-2C84ED3E1CC1' })
-        // sb.connect(id, pw, function(user, error) {
-        //     if (error) {
-        //         console.error('connect: ', error);
-        //         this.state({ error });
-        //     }
-        //     else {
-        //         sb.updateCurrentUserInfo(id, null, function (user, error) {
-        //             if (error) {
-        //                 console.error('update nickname: ', error);
-        //                 this.setState({ error });
-        //             }
-        //             else {
-        //                 console.log(user);
-        //                 this.setState({
-        //                     id: '',
-        //                     pw: '',
-        //                     error: ''
-        //                 });
-        //             }
-        //         });
-        //     }
-        // });
 
     }
     _onRegister = async () => {
