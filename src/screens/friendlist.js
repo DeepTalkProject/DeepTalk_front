@@ -116,7 +116,7 @@ class FriendBox extends Component {
                     console.log('Navigation');
                     console.log(_this.props.navigation);
                     _this.props.navigation.navigate('Chat', {
-                        'id': this.state.title
+                        'id': _this.state.title
                     });
                 }
             }
