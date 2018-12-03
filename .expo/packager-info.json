@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
+  "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://7e-bpn.anonymous.deeptalk-front.exp.direct",
   "packagerNgrokUrl": "https://packager.7e-bpn.anonymous.deeptalk-front.exp.direct",
-  "ngrokPid": 8527,
+  "ngrokPid": 3885,
   "devToolsPort": 19002,
-  "packagerPort": null,
-  "packagerPid": null
+  "packagerPort": 19001,
+  "packagerPid": 3799
 }
